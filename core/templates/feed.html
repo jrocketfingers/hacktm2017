@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+      {% for obj in object_list %}
+        {# a feed card entry #}
+        <div class="large-12 columns">
+            <div class="card">
+                <div class="card-divider">
+                    <h3>{{ obj.location.name }}</h1>
+                </div>
+                <img src="{% static "img/fake-map.jpg" %}" />
+            {% for request_for_resource in obj.requested %}
+                <div class="card-section">
+                        {{ request_for_resource.resource.name }}
+                        <div class="progress">
+                            <div class="progress-meter" style="width: {{ request_for_resource.progress }}%"></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}
