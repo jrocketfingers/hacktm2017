@@ -13,11 +13,11 @@ class UserProfile(models.Model):
         return "UserProfile(phone_num={}, name={}, primary_resource={})".format(phone_num, name, primary_resource)
 
 
-class Location (models.Model):
+class Location(models.Model):
     name = models.CharField(max_length=250)
 
     def __repr__(self):
-        return "Location({})".format(name)
+        return "Location({})".format(self.name)
 
 
 class Resource(models.Model):
