@@ -33,6 +33,10 @@ class Action(models.Model):
     requested_resources = models.ManyToManyField("core.Resource", through="core.RequestForResource", related_name="requested_at")
     pledged_resources = models.ManyToManyField("core.Resource", through="core.Pledge", related_name="pledged_to")
 
+    @property
+    def requested(self):
+        return self.requestforresource_set.all()
+
     def __repr__(self):
         return "Action(location={}, active={}, requested_resources={}, pledged_resources={})"
 
@@ -43,6 +47,11 @@ class RequestForResource(models.Model):
     resource = models.ForeignKey("core.Resource")
     needed = models.IntegerField()
     acquired = models.IntegerField(default=0)
+
+    @property
+    def progress(self):
+        import ipdb; ipdb.set_trace()
+        return int(self.acquired / self.needed * 100)
 
     def __repr__(self):
         return "RequestForResource(action={}, resource={}, needed={}, acquired={})".format(self.action,
